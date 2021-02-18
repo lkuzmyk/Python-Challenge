@@ -8,8 +8,6 @@ import csv
 csvpath = os.path.join("Resources", "budget_data.csv")
 
 # Set variables here:
-# Total_months = count lines
-# Total = sum
 line_count = 0
 total = 0
 greatest_increase = 0
@@ -17,8 +15,9 @@ greatest_decrease = 0
 
 # Lists to store Profit/Losses data
 Profit_Losses = []
+# may require another list for 3rd column (% change)
 
-# Calculate average
+# Calculate average - needs to be recalculated for new list set as % change
 def getAverage(Profit_Losses):
     return sum(Profit_Losses) / len(Profit_Losses)
 
@@ -35,9 +34,14 @@ with open(csvpath) as csvfile:
 
     # Start any for loops here:
     for row in csvreader:
-        #if line_count == 0:
-           # line_count += 1 
-       # line_count 
+        if line_count == 0:
+           line_count += 1
+
+        #append only numbers from "Profit/Losses" column
+        if line_count > 0:
+            Profit_Losses.append(row["Profit/Losses"])
+
+        line_count +=1
 
         
 
@@ -45,18 +49,23 @@ with open(csvpath) as csvfile:
 
     # Calculate the total # of months invluded in the dataset - determine len of column 1
     # ex output: Total Months: 86
+    # total_months = len(Profit_Losses)
 
     # Calculate the net total amount of profit/losses over the entire period - sum column 2
     # ex output: Total: $38382578
+    # total = sum(Profit_Losses)
 
     # Calculate the changes in profit/losses over the entire period, then find the average of those changes - loop thru and create column 3, then avg column 3 output
     # ex output: Average  Change: $-2315.12
+    # average_change = getAverage(change_list)
 
     # Locate the greatest increase in profits (date and amount) over the entire period - max from column 3
     # ex output: Greatest Increase in Profits: Feb-2012 ($1926159)
+    # greatest_increase = max(change_list)
     
     # Locate the greatest decrease in losses (date and amount) over the entire period - min from column 3
     # ex output: Greatest Decrease in Profits: Sep-2013 ($-2196167)
+    # greatest_decrease = min(change_list)
 
 
 
